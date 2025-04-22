@@ -1,0 +1,33 @@
+#services:
+#  app:
+#    build:
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://root:LMcIhTyeTthGlyCAXoVwXWIVlutTAVPX@nozomi.proxy.rlwy.net:58573/railway
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=LMcIhTyeTthGlyCAXoVwXWIVlutTAVPX
+#    depends_on:
+#      - db
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: LMcIhTyeTthGlyCAXoVwXWIVlutTAVPX
+      MYSQL_DATABASE: travel_experts
+    ports:
+      - "3306:3306"
